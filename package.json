@@ -1,0 +1,32 @@
+{
+  "name": "@olrtg/macd",
+  "version": "1.0.0",
+  "description": "macOS defaults for humans",
+  "author": "José Olórtegui <jolortegui98@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "macd": "bin/macd.js"
+  },
+  "scripts": {
+    "macd": "esno src/index.ts",
+    "dev": "esno src/index.ts",
+    "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/yargs": "^17.0.8",
+    "esno": "^0.14.1",
+    "rimraf": "^3.0.2",
+    "tsup": "^5.11.13",
+    "typescript": "^4.6.2",
+    "vitest": "^0.5.9"
+  },
+  "dependencies": {
+    "yaml": "^1.10.2",
+    "yargs": "^17.3.1"
+  }
+}
