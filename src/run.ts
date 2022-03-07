@@ -2,20 +2,32 @@ import fs from 'fs'
 import YAML from 'yaml'
 import { exec } from 'child_process'
 import { DefaultsFile } from './types'
-import { configToCommands } from './mapper'
+import { fileToCommands } from './mapper'
 
 export function run(filePath: string) {
-  const rawFile = fs.readFileSync(filePath, 'utf8')
-  const parsedFile = YAML.parse(rawFile) as DefaultsFile
+  try {
+    const rawFile = fs.readFileSync(filePath, 'utf8')
+    const parsedFile = YAML.parse(rawFile) as DefaultsFile
 
-  const commands = configToCommands(parsedFile)
+    if (!parsedFile) {
+      console.log('You cannot use an empty file.')
+      return
+    }
 
-  commands.forEach(command => {
-    exec(command, (err, stdout, stderr) => {
+    const commands = fileToCommands(parsedFile)
+    commands.forEach(command => {
       console.log(command)
-      if (err) {
-        console.error(err)
-      }
+      // exec(command, (err, stdout, stderr) => {
+      //   if (err) {
+      //     console.error(err)
+      //   }
+      // })
     })
-  })
+  } catch (error: any) {
+    if (error.code === 'ENOENT') {
+      console.log('File not found.')
+    } else {
+      throw error
+    }
+  }
 }

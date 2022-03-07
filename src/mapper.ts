@@ -1,13 +1,9 @@
-// import { DefaultsOptions } from './types'
+import { CommandsParentMap, Defaults } from './types'
 
-import { DefaultsFile } from './types'
-
-export const commandsMap: {
-  [category: string]: { [rule: string]: (val: boolean | number) => string }
-} = {
+export const commandsMap: CommandsParentMap<Defaults> = {
   dock: {
     autohide: (val = false) =>
-      `defaults write NSGlobalDomain _HIHideMenuBar -bool ${val}`,
+      `defaults write com.apple.dock autohide -bool ${val}`,
     icon_size: (val = 48) =>
       `defaults write com.apple.dock tilesize -int ${val}`,
     show_recent_apps: (val = true) =>
@@ -33,15 +29,16 @@ export const commandsMap: {
   },
 }
 
-export function configToCommands(config: {
-  [category: string]: { [rule: string]: any }
-}) {
-  const commands = Object.keys(config)
-    .map(category =>
-      Object.keys(config[category]).map(rule =>
-        commandsMap[category][rule](config[category][rule]),
-      ),
-    )
+export function fileToCommands(file: any) {
+  const parentKeys = Object.keys(file)
+  const commands = parentKeys
+    .map(parent => {
+      const childKeys = Object.keys(file[parent])
+
+      return childKeys.map(child => {
+        return commandsMap[parent][child](file[parent][child])
+      })
+    })
     .flat()
 
   return commands

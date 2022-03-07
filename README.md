@@ -6,7 +6,7 @@
   macOS defaults for humans.
 </p>
 
-> ⚠️ macd is still in development.
+> ⚠️ macd is still in early stages of development.
 
 # Usage
 
