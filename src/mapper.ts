@@ -1,4 +1,4 @@
-import { CommandsParentMap, Defaults } from './types'
+import { CommandsParentMap, Defaults, DefaultsFile } from './types'
 
 export const commandsMap: CommandsParentMap<Defaults> = {
   dock: {
@@ -29,11 +29,14 @@ export const commandsMap: CommandsParentMap<Defaults> = {
   },
 }
 
-export function fileToCommands(file: any) {
-  const parentKeys = Object.keys(file)
+export function fileToCommands(file: DefaultsFile) {
+  const parentKeys = Object.keys(file) as Array<keyof DefaultsFile>
+
+  if (!parentKeys.length) return
+
   const commands = parentKeys
     .map(parent => {
-      const childKeys = Object.keys(file[parent])
+      const childKeys = Object.keys(file[parent]})
 
       return childKeys.map(child => {
         return commandsMap[parent][child](file[parent][child])

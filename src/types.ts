@@ -1,4 +1,4 @@
-export type DefaultsFile = Readonly<Partial<Defaults>>
+import { DeepPartial, DeepReadonly } from 'utility-types'
 
 export interface Defaults {
   dock: Dock
@@ -28,3 +28,4 @@ type StrFn<T> = (val: T) => string
 type CommandsChildMap<T> = { [K in keyof T]: StrFn<T[K]> }
 
 export type CommandsParentMap<T> = { [K in keyof T]: CommandsChildMap<T[K]> }
+export type DefaultsFile = DeepReadonly<DeepPartial<Defaults>>
