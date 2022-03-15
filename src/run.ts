@@ -17,11 +17,11 @@ export function run(filePath: string) {
     const commands = fileToCommands(parsedFile)
     commands.forEach(command => {
       console.log(command)
-      // exec(command, (err, stdout, stderr) => {
-      //   if (err) {
-      //     console.error(err)
-      //   }
-      // })
+      exec(command, err => {
+        if (err) {
+          console.error(err)
+        }
+      })
     })
   } catch (error: any) {
     if (error.code === 'ENOENT') {
