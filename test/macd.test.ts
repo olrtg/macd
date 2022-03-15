@@ -6,7 +6,9 @@ describe('defaults.ts', () => {
     const filePath = './examples/defaults.yml'
     const defaults = readConfigFile(filePath)
 
-    expect(defaults).toMatchObject({ dock: { autohide: true } })
+    const expected = { dock: { autohide: true } }
+
+    expect(defaults).toMatchObject(expected)
   })
   it('should throw an error when the file is empty', () => {
     const filePath = './examples/defaults.empty.yml'
@@ -20,7 +22,9 @@ describe('defaults.ts', () => {
 
     expect(defaults).toThrowError
   })
-  it('should have a list of available commands')
+  it('should be able to retrieve a command given a category and name')
+
   it('should take the config file and find the commands from the list')
+
   it('should perform the commands')
 })

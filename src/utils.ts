@@ -2,7 +2,7 @@ import fs from 'fs'
 import YAML from 'yaml'
 import { DefaultsFile } from './types'
 
-export function readConfigFile(filePath: string) {
+export function readConfigFile(filePath: string): DefaultsFile | undefined {
   try {
     const rawFile = fs.readFileSync(filePath, 'utf8')
     const parsedFile = YAML.parse(rawFile) as DefaultsFile
@@ -13,7 +13,7 @@ export function readConfigFile(filePath: string) {
     }
 
     return parsedFile
-  } catch (error) {
+  } catch (error: any) {
     if (error.code === 'ENOENT') {
       console.log('The file does not exist.')
     }

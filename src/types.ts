@@ -1,5 +1,3 @@
-import { DeepPartial, DeepReadonly } from 'utility-types'
-
 export interface Defaults {
   dock: Dock
   menubar: Menubar
@@ -25,7 +23,15 @@ interface Finder {
 }
 
 type StrFn<T> = (val: T) => string
-type CommandsChildMap<T> = { [K in keyof T]: StrFn<T[K]> }
+export type CommandsChildMap<T> = { [K in keyof T]: StrFn<T[K]> }
+export type CommandsParentMap<T> = {
+  [K in keyof T]: CommandsChildMap<Partial<T[K]>>
+}
 
-export type CommandsParentMap<T> = { [K in keyof T]: CommandsChildMap<T[K]> }
-export type DefaultsFile = DeepReadonly<DeepPartial<Defaults>>
+export type DefaultsChildMap<T> = { [K in keyof T]: T[K] }
+export type DefaultsParentMap<T> = {
+  [K in keyof T]: DefaultsChildMap<Partial<T[K]>>
+}
+
+export type Commands = CommandsParentMap<Partial<Defaults>>
+export type DefaultsFile = DefaultsParentMap<Partial<Defaults>>
