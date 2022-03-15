@@ -4,6 +4,10 @@
   "description": "macOS defaults for humans",
   "author": "José Olórtegui <jolortegui98@gmail.com>",
   "license": "MIT",
+  "files": [
+    "dist",
+    "bin"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
