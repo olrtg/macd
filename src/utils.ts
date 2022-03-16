@@ -16,10 +16,14 @@ export function readConfigFile(filePath: string): DefaultsFile | undefined {
   } catch (error: any) {
     if (error.code === 'ENOENT') {
       console.log('The file does not exist.')
+      return
     }
 
     if (error.code === 'EACCES') {
-      console.log("Looks like i don't have permission to read this file.")
+      console.log("Looks like you don't have permission to read this file.")
+      return
     }
+
+    throw error
   }
 }
