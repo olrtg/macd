@@ -10,8 +10,28 @@
 
 # Usage
 
+You need to have a yaml file where you define your default config for your macOS system, for example:
+
+```yaml
+# defaults.yml
+dock:
+  autohide: true
+
+menubar:
+  autohide: true
+```
+
+And then you execute:
+
 ```bash
 npx @olrtg/macd ~/dotfiles/macos/defaults.yml
 ```
 
-This project is for people that wants to have for example a list of defaults for a new macOS in a yaml file. macOS has a way to interact with the defaults of your machine but, there's not a clear explanation of what do what command.
+# To-do
+
+- [ ] Add the full list of commands in the README
+- [ ] Add some kind of descriptive logging of the commands that are being executed
+- [ ] JSON schema for text editor intellisense
+- [ ] Add more commands
+
+If you can help with one of the items above any contributions will be appreciated.
