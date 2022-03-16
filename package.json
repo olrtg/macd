@@ -1,6 +1,6 @@
 {
   "name": "@olrtg/macd",
-  "version": "0.0.2-beta.3",
+  "version": "1.0.0-beta.1",
   "description": "macOS defaults for humans",
   "author": "José Olórtegui <jolortegui98@gmail.com>",
   "license": "MIT",
