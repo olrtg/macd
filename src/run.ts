@@ -12,6 +12,8 @@ export function run(filePath: string) {
   const commands = fileToCommands(file)
   commands.forEach(command => {
     exec(command, err => {
+      console.log(command)
+
       if (err) {
         console.error(err)
       }
