@@ -1,6 +1,6 @@
 import yargs from 'yargs'
 import { version } from '../package.json'
-import { run } from './run'
+import { runCommands } from './utils'
 
 const cli = yargs
   .scriptName('macd')
@@ -21,7 +21,7 @@ cli.command(
     })
   },
   ({ config_file: configFile }) => {
-    run(configFile as string)
+    runCommands(configFile as string)
   },
 )
 

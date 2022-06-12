@@ -1,4 +1,6 @@
-export const commandsMap: any = {
+import { Commands } from './types'
+
+export const COMMANDS: Commands = {
   dock: {
     position: (val: 'top' | 'right' | 'bottom' | 'left' = 'bottom') =>
       `defaults write com.apple.dock orientation -string ${val}`,
@@ -32,6 +34,8 @@ export const commandsMap: any = {
       `defaults write com.apple.finder ShowPathbar -bool ${val}`,
     pathbar_starts_at_home: (val = false) =>
       `defaults write com.apple.finder PathBarRootAtHome -bool ${val}`,
+    can_quit: (val = false) =>
+      `defaults write com.apple.finder QuitMenuItem -bool ${val}`,
   },
 
   screenshots: {
@@ -46,20 +50,9 @@ export const commandsMap: any = {
     output_format: (val: 'png' | 'jpg' = 'png') =>
       `defaults write com.apple.screencapture type -string ${val}`,
   },
-}
 
-export function fileToCommands(file: any) {
-  const parentKeys = Object.keys(file)
-
-  const commands = parentKeys
-    .map((parent: any) => {
-      const childKeys = Object.keys(file[parent])
-
-      return childKeys.map((child: any) => {
-        return commandsMap[parent][child](file[parent][child])
-      })
-    })
-    .flat()
-
-  return commands
+  mission_control: {
+    rearrange_automatically: (val = true) =>
+      `defaults write com.apple.dock mru-spaces -bool ${val}`,
+  },
 }

@@ -1,17 +1,23 @@
-export interface Defaults {
+interface Defaults {
   dock: Dock
   menubar: Menubar
   finder: Finder
+  screenshots: Screenshots
+  mission_control: MissionControl
 }
 
 interface Dock {
+  position: 'top' | 'right' | 'bottom' | 'left'
   autohide: boolean
+  autohide_delay: number
   icon_size: number
   show_recent_apps: boolean
+  minimize_animation: 'genie' | 'scale' | 'suck'
 }
 
 interface Menubar {
   autohide: boolean
+  flash_time_separators: boolean
 }
 
 interface Finder {
@@ -20,18 +26,27 @@ interface Finder {
   warning_on_extension_change: boolean
   show_pathbar: boolean
   pathbar_starts_at_home: boolean
+  can_quit: boolean
 }
 
-type StrFn<T> = (val: T) => string
-export type CommandsChildMap<T> = { [K in keyof T]: StrFn<T[K]> }
-export type CommandsParentMap<T> = {
-  [K in keyof T]: CommandsChildMap<Partial<T[K]>>
+interface Screenshots {
+  disable_shadows: boolean
+  include_date: boolean
+  location: string
+  display_thumbnail: boolean
+  output_format: 'png' | 'jpg'
 }
 
-export type DefaultsChildMap<T> = { [K in keyof T]: T[K] }
-export type DefaultsParentMap<T> = {
-  [K in keyof T]: DefaultsChildMap<Partial<T[K]>>
+interface MissionControl {
+  rearrange_automatically: boolean
 }
 
-export type Commands = CommandsParentMap<Partial<Defaults>>
-export type DefaultsFile = DefaultsParentMap<Partial<Defaults>>
+export type DefaultsFile = Defaults
+
+export type Commands = {
+  [ParentKey in keyof Defaults]: {
+    [ChildKey in keyof Defaults[ParentKey]]: (
+      val: Defaults[ParentKey][ChildKey],
+    ) => string
+  }
+}
