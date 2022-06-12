@@ -12,29 +12,29 @@ export function runCommands(filePath: string) {
   }
 
   const commands = fileToCommands(file)
-  // commands.forEach(command => {
-  //   exec(command, err => {
-  //     console.log(command)
+  commands.forEach(command => {
+    exec(command, err => {
+      console.log(command)
 
-  //     if (err) {
-  //       console.error(err)
-  //     }
-  //   })
-  // })
+      if (err) {
+        console.error(err)
+      }
+    })
+  })
 }
 
-export function fileToCommands(file: DefaultsFile) {
+export function fileToCommands(file: any) {
   const commands: string[] = []
 
-  const parentKeys = Object.keys(file) as Array<keyof DefaultsFile>
+  const parentKeys = Object.keys(file)
 
   parentKeys.forEach(parentKey => {
     const parent = file[parentKey]
-    const childKeys = Object.keys(parent) as Array<keyof typeof parentKey>
+    const childKeys = Object.keys(parent)
 
     childKeys.forEach(childKey => {
       const child = parent[childKey]
-      const command = COMMANDS[parentKey][childKey](child)
+      const command = (COMMANDS as any)[parentKey][childKey](child)
 
       commands.push(command)
     })
