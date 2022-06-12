@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 MD041-->
 <h3 align="center">
   macd
 </h3>
@@ -27,7 +28,7 @@ And then you execute:
 npx @olrtg/macd ~/dotfiles/macos/defaults.yml
 ```
 
-For the full list of commands, take a look at the [mapper.ts](https://github.com/olrtg/macd/blob/fd774fdbad37ddf5aa10e4f063472cdc35c0ac10/src/mapper.ts#L1) file.
+For the full list of commands, take a look at the [mapper.ts](https://github.com/olrtg/macd/blob/main/src/constants.ts#L1) file.
 
 # To-do
 
