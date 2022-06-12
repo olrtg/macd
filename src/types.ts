@@ -41,7 +41,7 @@ interface MissionControl {
   rearrange_automatically: boolean
 }
 
-export type DefaultsFile = Defaults
+export type DefaultsFile = DeepPartial<Defaults>
 
 export type Commands = {
   [ParentKey in keyof Defaults]: {
@@ -50,3 +50,9 @@ export type Commands = {
     ) => string
   }
 }
+
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>
+    }
+  : T

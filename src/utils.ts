@@ -1,6 +1,6 @@
 import fs from 'fs'
 import YAML from 'yaml'
-import { DefaultsFile, ObjectKeys } from './types'
+import { DefaultsFile } from './types'
 import { exec } from 'child_process'
 import { COMMANDS } from './constants'
 
@@ -23,13 +23,13 @@ export function runCommands(filePath: string) {
   })
 }
 
-export function fileToCommands(file: any) {
+export function fileToCommands(file: DefaultsFile) {
   const commands: string[] = []
 
   const parentKeys = Object.keys(file)
 
   parentKeys.forEach(parentKey => {
-    const parent = file[parentKey]
+    const parent = (file as any)[parentKey]
     const childKeys = Object.keys(parent)
 
     childKeys.forEach(childKey => {
@@ -49,20 +49,17 @@ export const readConfigFile = (filePath: string): DefaultsFile | undefined => {
     const parsedFile = YAML.parse(rawFile) as DefaultsFile
 
     if (!parsedFile) {
-      console.log('You cannot use an empty file.')
-      return
+      throw 'You cannot use an empty file.'
     }
 
     return parsedFile
   } catch (error: any) {
     if (error.code === 'ENOENT') {
-      console.log('The file does not exist.')
-      return
+      throw 'The file does not exist.'
     }
 
     if (error.code === 'EACCES') {
-      console.log("Looks like you don't have permission to read this file.")
-      return
+      throw "Looks like you don't have permission to read this file."
     }
 
     throw error
