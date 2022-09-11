@@ -23,18 +23,36 @@ export function runCommands(filePath: string) {
   })
 }
 
+type ParentKey = keyof DefaultsFile
+type ChildKey = keyof DefaultsFile[ParentKey]
+
 export function fileToCommands(file: DefaultsFile) {
   const commands: string[] = []
 
-  const parentKeys = Object.keys(file)
+  const parentKeys = Object.keys(file) as ParentKey[]
 
   parentKeys.forEach(parentKey => {
-    const parent = (file as any)[parentKey]
-    const childKeys = Object.keys(parent)
+    const parent = file[parentKey]
+
+    if (!parent) return
+
+    const childKeys = Object.keys(parent) as ChildKey[]
 
     childKeys.forEach(childKey => {
       const child = parent[childKey]
-      const command = (COMMANDS as any)[parentKey][childKey](child)
+
+      if (!child) return
+
+      const commandParent = COMMANDS[parentKey]
+
+      if (!commandParent) return
+
+      const commandChild = commandParent[childKey]
+
+      if (!commandChild) return
+
+      // @ts-expect-error
+      const command = commandChild(child!)
 
       commands.push(command)
     })
