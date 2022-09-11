@@ -28,23 +28,24 @@
     "macd": "bin/macd.mjs"
   },
   "scripts": {
-    "macd": "esno src/index.ts",
-    "dev": "esno src/index.ts",
+    "prepublishOnly": "npm run build",
+    "macd": "tsx src/index.ts",
+    "dev": "tsx src/index.ts",
     "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts",
-    "release": "npx bumpp --commit --push --tag",
+    "release": "npx bumpp --commit --push --tag && npm publish",
     "test": "vitest"
   },
   "devDependencies": {
-    "@types/node": "^17.0.21",
-    "@types/yargs": "^17.0.8",
-    "esno": "^0.14.1",
+    "@types/node": "18.7.16",
+    "@types/yargs": "17.0.12",
     "rimraf": "^3.0.2",
-    "tsup": "^5.11.13",
-    "typescript": "^4.6.2",
-    "vitest": "^0.5.9"
+    "tsup": "6.2.3",
+    "tsx": "^3.9.0",
+    "typescript": "4.8.3",
+    "vitest": "0.23.2"
   },
   "dependencies": {
-    "yaml": "^1.10.2",
-    "yargs": "^17.3.1"
+    "yaml": "2.1.1",
+    "yargs": "17.5.1"
   }
 }
