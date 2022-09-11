@@ -25,7 +25,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "bin": {
-    "macd": "bin/macd.js"
+    "macd": "bin/macd.mjs"
   },
   "scripts": {
     "macd": "esno src/index.ts",
