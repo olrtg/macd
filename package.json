@@ -32,12 +32,13 @@
     "macd": "tsx src/index.ts",
     "dev": "tsx src/index.ts",
     "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts",
-    "release": "npx bumpp --commit --push --tag && npm publish",
+    "release": "bumpp && npm publish",
     "test": "vitest"
   },
   "devDependencies": {
     "@types/node": "18.7.16",
     "@types/yargs": "17.0.12",
+    "bumpp": "^8.2.1",
     "rimraf": "^3.0.2",
     "tsup": "6.2.3",
     "tsx": "^3.9.0",
